@@ -1,26 +1,10 @@
 import React from 'react';
 import '../MoviesCard/MoviesCard.css';
-import { useLocation } from 'react-router-dom';
 
 
 function SavedMoviesCard(props) {
 
-    const location = useLocation();
-    const [isSave, setIsSave] = React.useState(false);
-  
-    /*const cardLikeButton = (
-      `card__button_type_like ${isLiked ? 'card__button_type_like_active' : 'card__button_type_like'}`
-    );
-  
-    function handleLikeClick() {
-      props.onCardLike(props.card)
-    }
-  
-  
-    function handleSaveClick() {
-      setIsSave(true);
-    }*/
-  
+   
     return (
         <div className="card">
           <div className="card__info">

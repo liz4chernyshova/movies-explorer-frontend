@@ -6,20 +6,11 @@ import Preloader from '../Preloader/Preloader';
 import Footer from '../Footer/Footer';
 import SearchForm from '../SearchForm/SearchForm';
 
-function Movies(props) {
-  const [search, setSearch] = React.useState(false)
-
-  function handlerOpen() {
-    setSearch(true)
-  }
-  
-  function handleClose() {
-    setSearch(false)
-  }
+function Movies({loggedIn}) {
  
   return (
     <main className="movies-container">
-      <HeaderMovies />
+      <HeaderMovies loggedIn={loggedIn}/>
       <SearchForm />
       <MoviesCardList />
       <Preloader />

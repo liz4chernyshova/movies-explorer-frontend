@@ -5,15 +5,15 @@ import SavedMoviesCardList from '../SavedMoviesCardList/SavedMoviesCardList';
 import Footer from '../Footer/Footer';
 import SearchForm from '../SearchForm/SearchForm';
 
-function SavedMovies(props) {
+function SavedMovies({loggedIn}) {
  
   return (
-    <main className="movies-container">
-      <HeaderMovies />
+    <>
+      <HeaderMovies loggedIn={loggedIn}/>
       <SearchForm />
       <SavedMoviesCardList />
       <Footer />
-    </main>
+    </>
   ) 
 }
 

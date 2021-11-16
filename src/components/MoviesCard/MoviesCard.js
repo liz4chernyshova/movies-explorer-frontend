@@ -1,12 +1,9 @@
 import React from 'react';
 import './MoviesCard.css';
-import { useLocation } from 'react-router-dom';
 
 
 function MoviesCard(props) {
 
-  const location = useLocation();
-  const [isSave, setIsSave] = React.useState(false);
   const [isLiked, setIsLike] = React.useState(false);
 
   function handleLikeClick() {

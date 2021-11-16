@@ -4,9 +4,7 @@ import MoviesCard from '../MoviesCard/MoviesCard';
 import dataFilmList from '../dataFilmList';
 
 function MoviesCardList(props) {
-  function handleClick() {
 
-  }
   return (
     <section className="cards"> 
       <div className="cards__conteiner">

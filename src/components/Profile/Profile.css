@@ -23,14 +23,21 @@
 }
   
   .profile__input {
-    display: block;
-    text-align: right;
-    background-color: transparent;
+    width: 80%;
     border: none;
-    outline: none;
-    font-weight: normal;
     font-size: 11px;
     line-height: 13px;
+    text-align: end;
+    background-color: inherit;
+    color: #000000;
+    outline: none;
+  }
+
+  .profile__input::placeholder {
+    display: flex;
+    align-self: flex-end;
+    outline: none;
+    text-align: end;
     color: #000000;
   }
   
@@ -43,14 +50,13 @@
     font-weight: 500;
     font-size: 11px;
     line-height: 13px;
-    margin-bottom: 17px; 
+    margin-bottom: 16px; 
     border: none;
     color: #000000;
-    border-bottom: 1px solid #E8E8E8;
   }
   
-  .profile__label:last-child {
-    border-bottom: none;
+  .profile__label_type_name {
+    border-bottom: 1px solid #E8E8E8;
   }
   
   .profile__submit {
