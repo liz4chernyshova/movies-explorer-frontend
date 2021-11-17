@@ -1,7 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import "./MobileVersionNav.css";
-
 import close_icon from '../../images/close_btn.svg';
 
 export default function MobileNavigation({ loggedIn }) {
