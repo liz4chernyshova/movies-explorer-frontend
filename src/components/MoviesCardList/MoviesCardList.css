@@ -12,24 +12,13 @@
     justify-content: center;
 }
 
-.cards__button {
-    width: 320px;
-    height: 36px;
-    border: 2px solid #E8E8E8;
-    border-radius: 2px;
-    background-color: #FFFFFF;
+.cards__preloader {
+    border: none;
+    background-color: inherit;
     outline: none;
-    cursor: pointer;
-    color: #000000;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 12px;
-    line-height: 1.25;
-    text-align: center;
-    transition: 0.3s;
 }
 
-.cards__button:hover { 
+.cards__preloader:hover {
     opacity: 0.7;
 }
 

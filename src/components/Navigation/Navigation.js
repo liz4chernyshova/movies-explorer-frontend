@@ -29,7 +29,7 @@ export default function Navigation({ loggedIn }) {
             </li>
           </div>
           <div className="navigation__link-account">
-            <NavLink to="/profile" className="navigation__link">
+            <NavLink to="/profile" className="navigation__link_account">
               <button className="navigation__link-button">Аккаунт
                 <div className="navigation__link-button_acc"><img className="navigation__link-button_icon" src={acc_icon} alt="Иконка" /></div>
               </button>

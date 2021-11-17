@@ -12,6 +12,7 @@
     margin: auto;
     display: flex;
     flex-direction: column;
+    box-sizing: border-box;
 }
 
 .promo__title {
@@ -34,6 +35,7 @@
 @media screen and (max-width: 850px) {
     .promo {
         padding-bottom: 70px;
+        overflow: hidden;
     }
     
     .promo__banner{
@@ -49,14 +51,12 @@
 
     .promo__image {
         width: 680px;
-        margin: 140px auto 0;
     }
 }
 
 @media screen and (max-width: 420px) {
     
     .promo {
-        overflow: hidden;
         padding: 0;
     }
 

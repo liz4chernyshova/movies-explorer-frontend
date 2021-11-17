@@ -2,7 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import "./MobileVersionNav.css";
 
-import closeBurgerMenu from '../../images/mobile-nav.svg';
+import close_icon from '../../images/close_btn.svg';
 
 export default function MobileNavigation({ loggedIn }) {
   const [open, setOpen] = React.useState(false);
@@ -13,7 +13,7 @@ export default function MobileNavigation({ loggedIn }) {
       <>
         {open ? (
           <button className="mobile-menu__close-btn" onClick={() => closeMobileMenu()}>
-            <img className="mobile-menu__close-btn-img" src={closeBurgerMenu} alt="Закрыть"></img>
+            <img className="mobile-menu__close-btn-img" src={close_icon} alt="Закрыть"></img>
           </button>
         ) : (
           <button className="menu-burger" onClick={() => { setOpen(!open); }}

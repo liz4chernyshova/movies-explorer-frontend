@@ -50,6 +50,7 @@
     border: none;
     position: relative;
     background-image: url(../../images/mobile-nav.svg);
+    outline: none;
   }
   
   .mobile-menu__close-btn {
@@ -60,6 +61,7 @@
     background: transparent;
     border: none;
     cursor: pointer;
+    outline: none;
   }
   
   .mobile-menu__close-btn-img {
@@ -68,6 +70,10 @@
     padding: 0;
     margin: 0;
     z-index: 200;
+  }
+
+  .mobile-menu__close-btn-img:hover, .menu-burger:hover {
+    opacity: 0.5;
   }
   
   .mobile-nav__block {
