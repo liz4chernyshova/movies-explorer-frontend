@@ -114,7 +114,9 @@ function App() {
       <CurrentUserContext.Provider value={currentUser}>
         <Switch>
           <Route exact path="/">
-            <Main loggedIn={loggedIn}/>
+            <Main 
+            loggedIn={loggedIn}
+            />
           </Route>
           <Route path="/signup">
             {loggedIn ? (
