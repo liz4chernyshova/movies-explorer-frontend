@@ -101,4 +101,16 @@
     cursor: pointer;
     opacity: 0.6;
   }
+
+  @media screen and (max-width: 450px) {
+    .profile {
+      max-width: 80%;
+      margin: auto;
+    }
+
+    .profile__link-signout {
+      line-height: 12px;
+      line-height: 1.2;
+    }
+  }
   
