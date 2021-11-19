@@ -12,18 +12,34 @@
     justify-content: center;
 }
 
-.cards__preloader {
-    border: none;
-    background-color: inherit;
+.cards__add-button {
+    width: 320px;
+    height: 36px;
+    border: 2px solid #E8E8E8;
+    border-radius: 10px;
+    background-color: #FFFFFF;
     outline: none;
+    cursor: pointer;
+    color: #000000;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 1.2;
+    text-align: center;
+    transition: 0.3s;
 }
 
-.cards__preloader:hover {
+.cards__add-button:hover { 
     opacity: 0.7;
-}
+  }
 
 @media all and (max-width: 450px) {
     .cards__button {
         width: 240px;
+    }
+
+    .cards__add-button {
+        width: 240px;
+        margin-bottom: 168px;
     }
 }

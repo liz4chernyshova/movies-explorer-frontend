@@ -66,16 +66,6 @@ export const signOut = () => {
     }).then(checkResponse);
 };
 
-export const getMovies = () => {
-    return fetch(`${BASE_URL}`, {
-      method: 'GET',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },      
-    })
-    .then(checkResponse);
-  };
 
 export const saveMovie = (data) => {
     return fetch(`${BASE_URL}/movies`, {

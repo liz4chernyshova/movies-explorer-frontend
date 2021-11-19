@@ -2,7 +2,8 @@ import { React, useState } from 'react';
 import './MoviesCardList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
 import dataFilmList from '../dataFilmList';
-import Preloader from '../Preloader/Preloader';
+
+
 
 function MoviesCardList(props) {
 
@@ -23,9 +24,7 @@ function MoviesCardList(props) {
       <div className="cards__next">
       {
         (dataFilmList.length && (countOfMovies.length !== dataFilmList.length )) ? (
-          <button className="cards__preloader" onClick={addMovies}>
-            <Preloader />
-          </button>
+          <button className="cards__add-button" onClick={addMovies}>Еще</button>
           ) : null
       }
       </div>

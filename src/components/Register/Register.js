@@ -25,7 +25,7 @@ function Register(props) {
     }
 
     return (
-        <main className="content">
+        <>
             <section className="register">
               <div className="register__container">
                 <div className="register__logo"></div>
@@ -48,7 +48,7 @@ function Register(props) {
                 </div>
               </div>
             </section>
-        </main>
+        </>
     );
 }
 
