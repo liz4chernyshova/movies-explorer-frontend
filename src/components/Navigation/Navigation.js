@@ -3,7 +3,8 @@ import './Navigation.css';
 import { Link, NavLink } from "react-router-dom";
 import acc_icon from '../../images/account_icon.svg';
 
-export default function Navigation({ loggedIn }) {
+function Navigation({ loggedIn }) {
+
   return (
     <>
       {!loggedIn && (
@@ -40,3 +41,5 @@ export default function Navigation({ loggedIn }) {
     </>
   );
 }
+
+export default Navigation;

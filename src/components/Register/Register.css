@@ -109,6 +109,16 @@
     line-height: 17px;
 }
 
+.register__input-error {
+    display: block;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 10px;
+    line-height: 12px;
+    color: #FF0000;
+    min-height: 12px;
+}
+
   @media screen and (max-width: 650px) {
 
     .register__container {
