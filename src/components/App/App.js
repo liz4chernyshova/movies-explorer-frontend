@@ -148,6 +148,7 @@ function App() {
           setToken(localStorage.getItem('jwt'));
 
           mainApi.getUserInfo(data.token)
+          console.log(data.token)
             .then(data => {
               setCurrentUser({ name: data.name, email: data.email });
             })
@@ -160,7 +161,9 @@ function App() {
         setIsActivePreloader(false);
         setLoginServerResponse(err.message);
       });
+      history.push('/movies');
   }
+
 
   function handleRegister(name, email, password) {
     setIsActivePreloader(true);

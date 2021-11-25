@@ -104,7 +104,8 @@ export class MainApi {
 const mainApi = new MainApi({
   url: 'https://api.chernyshova.movie.nomoredomains.work',
   headers: {
-    'Content-Type': 'application/json'
+    'Accept': 'application/json',
+    'Content-Type': 'application/json',
   }
 });
 

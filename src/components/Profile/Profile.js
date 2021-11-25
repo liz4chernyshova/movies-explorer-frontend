@@ -33,7 +33,7 @@ function Profile({ loggedIn, onSignOut, onUpdateUser, isActive }) {
               </label>
               <span className="name-input-error profile__input-error">{errors.name}</span>
               <label className="profile__label" htmlFor="email">E-mail
-                <input0 placeholder={values.email} onChange={handleChange} type="email" className="profile__input" name="email" id="email" required/>
+                <input placeholder={values.email} onChange={handleChange} type="email" className="profile__input" name="email" id="email" required/>
               </label>
               <span className="password-input-error profile__input-error">{errors.email}</span>
               <div className="profile__edit">
