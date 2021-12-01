@@ -4,12 +4,17 @@ import searchIcon from '../../images/searchicon.svg';
 import { useFormWithValidation } from "../../utils/validator";
 
 
-function SearchForm({ onSubmit, onHandleCheckbox }) {
-  const { values, handleChange, errors, isValid } = useFormWithValidation();
+function SearchForm({ searchMovie, onHandleCheckbox }) {
+  const { values, errors } = useFormWithValidation();
+  const [searchTerm, setSearchTerm] = React.useState('');
+
+  function onChange(evt) {
+    setSearchTerm(evt.target.value);
+  }
 
   function handleSubmit(evt) {
       evt.preventDefault();
-      onSubmit(values.searchInput);
+      searchMovie(searchTerm);
   }
 
   return (
@@ -17,9 +22,9 @@ function SearchForm({ onSubmit, onHandleCheckbox }) {
       <form className="search__form" onSubmit={handleSubmit}>
         <fieldset className="search__form_type_films">
           <button className="search__submit"><img className="search__icon" src={searchIcon} alt="поиска"></img></button>
-          <input className="search__input" onChange={handleChange} name="search" placeholder="Фильм" type="search" id="search" minLength="2" maxLength="200" required />
+          <input className="search__input" value={values.searchInput} onChange={onChange} name="search" placeholder="Фильм" type="search" id="search" minLength="2" maxLength="200" required />
           <span className="search-error">{errors.searchInput}</span>
-          <button className="search__button" type="submit" disabled={!isValid}>Найти</button>
+          <button className="search__button" type="submit" >Найти</button>
         </fieldset>
         <div className="search-filter">
           <label className="search-filter__label">

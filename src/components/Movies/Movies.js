@@ -1,5 +1,4 @@
 import React from 'react';
-//import './Movies.css';
 import HeaderMovies from '../HeaderMovies/HeaderMovies';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Preloader from '../Preloader/Preloader';
@@ -7,7 +6,7 @@ import Footer from '../Footer/Footer';
 import SearchForm from '../SearchForm/SearchForm';
 import { searchShortMovies } from '../../utils/utils';
 
-function Movies({movies, loggedIn, onSubmitSearchForm, isActive, errorServer, notFoundMovies, onMovieSave, onMovieDelete}) {
+function Movies({ movies, loggedIn, searchMovie, message, isActive, errorServer, notFoundMovies, onMovieSave, onMovieDelete }) {
   const [shortMovies, setShortMovies] = React.useState([]);
   const [isShorted, setIsShorted] = React.useState(false);
   const [notFoundShort, setNotFoundShort] = React.useState(false);
@@ -34,12 +33,16 @@ function Movies({movies, loggedIn, onSubmitSearchForm, isActive, errorServer, no
   return (
     <main className="movies-container">
       <HeaderMovies loggedIn={loggedIn} />
-      <SearchForm onSubmit={onSubmitSearchForm} onHandleCheckbox={handleSwitchShortMovies} />
+      <SearchForm searchMovie={searchMovie} onHandleCheckbox={handleSwitchShortMovies} />
       <Preloader isActive={isActive} />
       {!isActive && 
-        (<MoviesCardList  movies={isShorted ? shortMovies : movies} saved={false} errorServer={errorServer}
-                      onMovieSave={onMovieSave} onMovieDelete={onMovieDelete} 
-                      notFoundMovies={notFoundShort ? notFoundShort : notFoundMovies} 
+        (<MoviesCardList  movies={isShorted ? shortMovies : movies}
+          message={message}
+          saved={false} 
+          errorServer={errorServer}
+          onMovieSave={onMovieSave} 
+          onMovieDelete={onMovieDelete} 
+          notFoundMovies={notFoundShort ? notFoundShort : notFoundMovies} 
       />)}
       <Footer />
     </main>

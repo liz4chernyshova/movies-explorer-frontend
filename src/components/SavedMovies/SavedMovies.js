@@ -1,12 +1,11 @@
 import React from 'react';
-//import './Movies.css';
 import HeaderMovies from '../HeaderMovies/HeaderMovies';
-import SavedMoviesCardList from '../SavedMoviesCardList/SavedMoviesCardList';
+import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Footer from '../Footer/Footer';
 import SearchForm from '../SearchForm/SearchForm';
 import { searchShortMovies } from '../../utils/utils';
 
-function SavedMovies({movies, loggedIn, onMovieDelete, onSubmitSearchForm, notFoundSavedMovies}) {
+function SavedMovies({ movies, loggedIn, onMovieDelete, onSubmitSearchForm, notFoundSavedMovies}) {
   const [shortMovies, setShortMovies] = React.useState([]);
   const [isShorted, setIsShorted] = React.useState(false);
   const [notFoundShort, setNotFoundShort] = React.useState(false);
@@ -33,8 +32,8 @@ function SavedMovies({movies, loggedIn, onMovieDelete, onSubmitSearchForm, notFo
   return (
     <>
       <HeaderMovies loggedIn={loggedIn}/>
-      <SearchForm onSubmit={onSubmitSearchForm} onHandleCheckbox={handleSwitchShortMovies}/>
-      <SavedMoviesCardList movies={isShorted ? shortMovies : movies} saved={true} onMovieDelete={onMovieDelete} notFoundSavedMovies={notFoundShort ? notFoundShort : notFoundSavedMovies} />
+      <SearchForm searchMovie={onSubmitSearchForm} onHandleCheckbox={handleSwitchShortMovies}/>
+      <MoviesCardList movies={isShorted ? shortMovies : movies} saved={true} onMovieDelete={onMovieDelete} notFoundSavedMovies={notFoundShort ? notFoundShort : notFoundSavedMovies} />
       <Footer />
     </>
   ) 

@@ -62,7 +62,7 @@ function MoviesCardList({movies, saved, errorServer, onMovieSave, onMovieDelete,
       }
       </div>
       <div className="cards__next">
-      { movies.length !== newList.length && (<button type="button" className={`cards__add-button ${saved && 'cards__add-button_invisible'}`} onClick={addMoreCards}>Ещё</button>) }
+        { movies.length !== newList.length && (<button type="button" className={`cards__add-button ${saved && 'cards__add-button_invisible'}`} onClick={addMoreCards}>Ещё</button>) }
       </div>
     </section>
   ) 

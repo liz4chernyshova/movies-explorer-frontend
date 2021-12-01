@@ -10,7 +10,7 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import Error from '../Error/Error';
 import mainApi from '../../utils/MainApi';
 import * as auth from '../../utils/auth';
-import { getMovies } from '../../utils/MoviesApi';
+import * as moviesApi from '../../utils/MoviesApi';
 import {CurrentUserContext} from '../../contexts/CurrentUserContext';
 import { Switch, Route, Redirect, useHistory } from 'react-router-dom';
 
@@ -20,67 +20,58 @@ function App() {
   const history = useHistory();
   const [loggedIn, setLoggedIn] = React.useState(JSON.parse(localStorage.getItem('loggedIn')));
   const [currentUser, setCurrentUser] = React.useState({name: '', email: ''});
-  const [apiMoviesList, setApiMoviesList] = React.useState([]);
   const [movies, setMovies] = React.useState([]);
+  const [message, setMessage] = React.useState(null);
+  const [foundMovies, setFoundMovies] = React.useState([]);
   const [savedMovies, setSavedMovies] = React.useState([]);
   const [isActivePreloader, setIsActivePreloader] = React.useState(false);
   const [errorServer, setErrorServer] = React.useState(false);
-  const [notFoundMovies, setNotFoundMovies] = React.useState(false);
   const [notFoundSavedMovies, setNotFoundSavedMovies] = React.useState(false);
   const [token, setToken] = React.useState('');
   const [loginServerResponse, setLoginServerResponse] = React.useState('');
   const [registerServerResponse, setRegisterLoginServerResponse] = React.useState('');
   const [updateUserServerResponse, setUpdateUserLoginServerResponse] = React.useState({message: '', success: false });
 
-  function handleSearchMovies(movies, word) {
-    const findMovies = movies.filter((item) => {
-      return item.nameRU.toLowerCase().includes(word);
-    });
-    return findMovies;
-  }
 
-  function searchMyMovies(word) {
-    const movies = JSON.parse(localStorage.getItem('savedMovies'));
-    const listFindMovies = handleSearchMovies(movies, word);
+  React.useEffect(() => {
+    if (loggedIn) {
+      const moviesLocalStorage = localStorage.getItem('movies');
 
-    if(listFindMovies.length !== 0) {
-      setSavedMovies(listFindMovies);
-      setNotFoundSavedMovies(false);
-    } else {
-      setSavedMovies([]);
-      setNotFoundSavedMovies(true);
-    }
-  }
-
-  function searchMovies(word) {
-    setIsActivePreloader(true);
-
-    function filterMovies(movies) {
-      const listFindMovies = handleSearchMovies(movies, word);
-      if (listFindMovies.length !== 0) {
-        setIsActivePreloader(false);
-        localStorage.setItem('movies', JSON.stringify(listFindMovies));
-        setMovies(JSON.parse(localStorage.getItem('movies')));
-        setNotFoundMovies(false);
+      if (!moviesLocalStorage) {
+        moviesApi
+          .getMovies()
+          .then((res) => {
+            localStorage.setItem('movies', JSON.stringify(res || []));
+            setMovies(res || []);
+            setNotFoundSavedMovies(false);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
       } else {
-        setIsActivePreloader(false);
-        setNotFoundMovies(true);
-        setMovies([]);
+        setMovies(JSON.parse(moviesLocalStorage));
+        setNotFoundSavedMovies(true);
       }
     }
+  }, [loggedIn]);
 
-    if (apiMoviesList.length === 0) {
-      getMovies()
-        .then((data) => {
-          setApiMoviesList(data);
-          filterMovies(data);
-        })
-        .catch(err => {
-          console.log(err);
-          setErrorServer(true);
-        });
+
+  const resetSearchForm = () => {
+    setMessage(null);
+  };
+
+
+  function searchMovies(word) {
+    const searchTerm = word.toLowerCase();
+
+    const movieSearchResult = movies.filter((item) => {
+      return item.nameRU.toLowerCase().includes(searchTerm);
+    });
+    if (movieSearchResult.length === 0) {
+      setFoundMovies([]);
     } else {
-      filterMovies(apiMoviesList);
+      setFoundMovies(movieSearchResult);
+      resetSearchForm();
     }
   }
 
@@ -103,6 +94,26 @@ function App() {
         localStorage.setItem('savedMovies', JSON.stringify(newSavedMovies));
         setSavedMovies([...savedMovies, savedMovie]);
       })
+  }
+
+  function handleSearchMovies(movies, word) {
+    const findMovies = movies.filter((item) => {
+      return item.nameRU.toLowerCase().includes(word);
+    });
+    return findMovies;
+  }
+
+  function searchMyMovies(word) {
+    const movies = JSON.parse(localStorage.getItem('savedMovies'));
+    const listFindMovies = handleSearchMovies(movies, word);
+
+    if(listFindMovies.length !== 0) {
+      setSavedMovies(listFindMovies);
+      setNotFoundSavedMovies(false);
+    } else {
+      setSavedMovies([]);
+      setNotFoundSavedMovies(true);
+    }
   }
 
   function handleMovieDelete(id) {
@@ -146,9 +157,7 @@ function App() {
           localStorage.setItem('loggedIn', 'true');
           setLoggedIn(JSON.parse(localStorage.getItem('loggedIn')));
           setToken(localStorage.getItem('jwt'));
-
           mainApi.getUserInfo(data.token)
-          console.log(data.token)
             .then(data => {
               setCurrentUser({ name: data.name, email: data.email });
             })
@@ -244,11 +253,11 @@ function App() {
             exact path="/movies"
             component={Movies}
             loggedIn={loggedIn}
-            movies={movies}
+            movies={foundMovies}
+            message={message}
             isActive={isActivePreloader}
             errorServer={errorServer}
-            notFoundMovies={notFoundMovies}
-            onSubmitSearchForm={searchMovies}
+            searchMovie={searchMovies}
             onMovieSave={handleMovieSave}
             onMovieDelete={handleMovieDelete}
           />

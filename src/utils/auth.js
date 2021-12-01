@@ -1,4 +1,4 @@
-export const BASE_URL = 'https://api.chernyshova.movie.nomoredomains.work';
+export const BASE_URL = 'http://localhost:3001';
 
 const checkResponse = (res) => res.ok ? res.json() : res.json().then(res => Promise.reject(res));
 

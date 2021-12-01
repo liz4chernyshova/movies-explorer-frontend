@@ -6,19 +6,23 @@ import HeaderMovies from '../HeaderMovies/HeaderMovies';
 import Preloader from "../Preloader/Preloader";
 import { useFormWithValidation } from '../../utils/validator';
 
-function Profile({ loggedIn, onSignOut, onUpdateUser, isActive }) {
+function Profile({ loggedIn, onSignOut, onUpdateUser, serverResponse, isActive }) {
   const { values, setValues, handleChange, errors, isValid } = useFormWithValidation();
   const currentUser = React.useContext(CurrentUserContext);
+  const [isDisable, setIsDisable] = React.useState(false);
 
   React.useEffect(() => {
       setValues(currentUser);
   }, [currentUser, setValues]);
+
+  const checkValuesInput = () => currentUser.name !== values.name || currentUser.email !== values.email;
 
   function handleSubmit(evt) {
       const { name, email } = values;
 
       evt.preventDefault();
       onUpdateUser(name, email);
+      setIsDisable(false);
   }
 
   return (
@@ -28,20 +32,25 @@ function Profile({ loggedIn, onSignOut, onUpdateUser, isActive }) {
         <section className="profile">
         <h2 className="profile__title">{`Привет, ${currentUser.name}!`}</h2>
         <form className="profile__form"  noValidate onSubmit={handleSubmit} >
-              <label className="profile__label profile__label_type_name" htmlFor="name">Имя
-                <input  placeholder={values.name} onChange={handleChange} type="text" className="profile__input" name="name" id="name" minLength="2" maxLength="40" required/>
-              </label>
-              <span className="name-input-error profile__input-error">{errors.name}</span>
-              <label className="profile__label" htmlFor="email">E-mail
-                <input placeholder={values.email} onChange={handleChange} type="email" className="profile__input" name="email" id="email" required/>
-              </label>
-              <span className="password-input-error profile__input-error">{errors.email}</span>
-              <div className="profile__edit">
-                      <Link to="/signin" className="profile__link" disabled={!isValid}>{isActive ? <Preloader isActive={isActive} isAuth={true} /> : 'Редактировать'}</Link>
-              </div>
-              <div className="profile__signout">
-                      <Link to="/" className="profile__link-signout" onClick={onSignOut}>Выйти из аккаунта</Link>
-              </div>
+          <div className="profile__form-input">
+            <p className="profile__label">Имя</p>
+            <input value={values.name || ""} onChange={handleChange} type="text" name="name" className="profile__input" required minLength="2" maxLength="30" />
+          </div>
+          <span className="profile__input-error">{errors.name}</span>
+          <div className="profile__form-input">
+            <p className="profile__label">Email</p>
+            <input value={values.email || ""} onChange={handleChange} className="profile__input" type="email" name="email" />                  
+          </div>
+          <span className="profile__input-error">{errors.email}</span>
+            <div className="profile__edit">
+            <p className="profile__input-error">{serverResponse.message}</p>
+            { !checkValuesInput() || isDisable
+              ? <button type="submit" className="profile__link" disabled={true}>Редактировать</button>
+              : <button type="submit" className="profile__link" >{isActive ? <Preloader isActive={isActive} isAuth={true} /> : 'Редактировать'}</button> }
+            </div>
+            <div className="profile__signout">
+                    <Link to="/" className="profile__link-signout" onClick={onSignOut}>Выйти из аккаунта</Link>
+            </div>
         </form>
         </section>
       </main>
