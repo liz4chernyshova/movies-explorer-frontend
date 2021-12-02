@@ -30,7 +30,7 @@ function Login({ onLogin, serverResponse, isActive }) {
                         <span className="password-input-error register__input-error">{errors.password}</span>
                         <p className="login__submit-error">{serverResponse}</p>
                         <button type="submit" className="register__save-btn" >
-                            {isActive ? <Preloader isActive={isActive} isAuth={true} /> : "Войти"}
+                            {isActive ? <Preloader isActive={isActive} isAuth={true} disabled={!isValid}/> : "Войти"}
                         </button>
                     </form>
                     <div className="register__signup">

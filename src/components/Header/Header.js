@@ -2,8 +2,9 @@ import React from 'react';
 import './Header.css';
 import Navigation from '../Navigation/Navigation';
 import { useLocation } from 'react-router-dom';
+import MobileVersionNav from '../MobileVersionNav/MobileVersionNav';
 
-function Header(props) {
+function Header({ loggedIn }) {
 
     const userLocation = useLocation();
 
@@ -11,7 +12,8 @@ function Header(props) {
         <header className={`${userLocation.pathname === "/" ? "header" : "header header-logged-in"}`}>
             <div className="header__logo"></div>
             <article className="header__section">
-                <Navigation />
+                <Navigation loggedIn={loggedIn}/>
+                <MobileVersionNav loggedIn={loggedIn}/>
             </article>
         </header>
     )

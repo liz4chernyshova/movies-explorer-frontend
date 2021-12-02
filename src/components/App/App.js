@@ -17,7 +17,6 @@ import { Switch, Route, Redirect, useHistory } from 'react-router-dom';
 
 function App() {
 
-  const history = useHistory();
   const [loggedIn, setLoggedIn] = React.useState(JSON.parse(localStorage.getItem('loggedIn')));
   const [currentUser, setCurrentUser] = React.useState({name: '', email: ''});
   const [movies, setMovies] = React.useState([]);
@@ -31,6 +30,7 @@ function App() {
   const [loginServerResponse, setLoginServerResponse] = React.useState('');
   const [registerServerResponse, setRegisterLoginServerResponse] = React.useState('');
   const [updateUserServerResponse, setUpdateUserLoginServerResponse] = React.useState({message: '', success: false });
+  const history = useHistory();
 
 
   React.useEffect(() => {
@@ -94,6 +94,9 @@ function App() {
         localStorage.setItem('savedMovies', JSON.stringify(newSavedMovies));
         setSavedMovies([...savedMovies, savedMovie]);
       })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   function handleSearchMovies(movies, word) {
@@ -123,6 +126,9 @@ function App() {
         localStorage.setItem('savedMovies', JSON.stringify(newSavedMovies));
         setSavedMovies(newSavedMovies);
       })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   function handleUpdateUser(name, email) {
@@ -151,6 +157,9 @@ function App() {
     setIsActivePreloader(true);
 
     auth.authorize(email, password)
+      .then((res) => {
+        tokenCheck();
+      })
       .then(data => {
         setIsActivePreloader(false);
         if(data.token) {
@@ -165,27 +174,30 @@ function App() {
               console.log(err);
             });
         }
+        history.push('/movies');
       })
       .catch(err => {
         setIsActivePreloader(false);
         setLoginServerResponse(err.message);
       });
-      history.push('/movies');
   }
 
 
   function handleRegister(name, email, password) {
     setIsActivePreloader(true);
     auth.register(name, email, password)
+      .then((res) => {
+        tokenCheck();
+      })
       .then(data => {
         setIsActivePreloader(false);
         handleLogin(email, password);
+        history.push('/movies');
       })
       .catch(err => {
         setIsActivePreloader(false);
         setRegisterLoginServerResponse(err.message);
       });
-      history.push('/movies');
   }
 
   function handleSignOut() {
@@ -281,7 +293,7 @@ function App() {
           />
           <Route path="/signup">
             {loggedIn ? (
-                  <Redirect to="/movies" />
+                  <Redirect to='/movies' />
                 ) : (
               <Register onRegister={handleRegister} serverResponse={registerServerResponse} isActive={isActivePreloader} />
             )}
@@ -294,7 +306,7 @@ function App() {
             )}
           </Route>
           <Route path="*">
-            <Error />
+            <Error loggedIn={loggedIn}/>
           </Route>
         </Switch>
       </div>

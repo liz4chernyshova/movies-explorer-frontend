@@ -1,5 +1,6 @@
 import React from 'react';
 import './MoviesCard.css';
+import { setTimeFormat } from '../../utils/utils';
 export const MOVIES_IMAGE_URL = 'https://api.nomoreparties.co';
 
 
@@ -39,9 +40,12 @@ function MoviesCard({movie, saved, onMovieSave, onMovieDelete}) {
         <div className="card__info">
           <article className="card__text">
             <h2 className="card__title">{movie.nameRU}</h2>
-            <p className="card__time">{movie.duration}</p>
+            <p className="card__time">{setTimeFormat(movie.duration)}</p>
           </article>
-          <button className={cardLikeButtonClassName} onClick={handleLikeClick}></button>
+          {
+            saved ? <button className='card__button_type_delete' onClick={handleLikeClick}></button>
+                  : <button className={cardLikeButtonClassName} onClick={handleLikeClick}></button>
+          }
         </div>
         <a className="moviecard__link" href={movie.trailerLink} target="_blank" rel="noreferrer"> 
           <img className="card__image" src={linkImage} alt={movie.nameRU} />

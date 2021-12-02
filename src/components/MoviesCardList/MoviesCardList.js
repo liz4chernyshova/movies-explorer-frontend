@@ -28,6 +28,10 @@ function MoviesCardList({movies, saved, errorServer, onMovieSave, onMovieDelete,
     }
 
     window.addEventListener('resize', resizeHandler);
+
+    return () => {
+      window.removeEventListener("resize", resizeHandler);
+    };
   }, []);
 
   React.useEffect(() => {

@@ -45,7 +45,7 @@ function Profile({ loggedIn, onSignOut, onUpdateUser, serverResponse, isActive }
             <div className="profile__edit">
             <p className="profile__input-error">{serverResponse.message}</p>
             { !checkValuesInput() || isDisable
-              ? <button type="submit" className="profile__link" disabled={true}>Редактировать</button>
+              ? <button type="submit" className="profile__link" disabled={true} >Редактировать</button>
               : <button type="submit" className="profile__link" >{isActive ? <Preloader isActive={isActive} isAuth={true} /> : 'Редактировать'}</button> }
             </div>
             <div className="profile__signout">
