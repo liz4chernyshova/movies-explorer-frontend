@@ -171,6 +171,7 @@ function App() {
               setCurrentUser({ name: data.name, email: data.email });
             })
             .catch((err) => {
+              setLoggedIn(JSON.parse(localStorage.getItem(false)));
               console.log(err);
             });
         }
@@ -192,7 +193,6 @@ function App() {
       .then(data => {
         setIsActivePreloader(false);
         handleLogin(email, password);
-        history.push('/movies');
       })
       .catch(err => {
         setIsActivePreloader(false);
@@ -221,6 +221,7 @@ function App() {
             setLoggedIn(JSON.parse(localStorage.getItem('loggedIn')));
           }
         }).catch((err) => {
+          setLoggedIn(JSON.parse(localStorage.getItem(false)));
           console.log(err);
         });
       }
@@ -300,12 +301,12 @@ function App() {
           </Route>
           <Route path='/signin'>
             {loggedIn ? (
-                  <Redirect to="/movies" />
+                  <Redirect to='/movies' />
                 ) : (
             <Login onLogin={handleLogin} serverResponse={loginServerResponse} isActive={isActivePreloader} />
             )}
           </Route>
-          <Route path="*">
+          <Route path="/*">
             <Error loggedIn={loggedIn}/>
           </Route>
         </Switch>
