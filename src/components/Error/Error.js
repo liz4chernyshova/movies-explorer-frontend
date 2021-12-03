@@ -10,7 +10,7 @@ function Error({ loggedIn}) {
     if (loggedIn) {
       history.goBack();
     } else {
-      history.push("/");
+      history.goBack();
     }
   }
   
